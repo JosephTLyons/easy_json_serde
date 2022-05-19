@@ -1,7 +1,11 @@
 [package]
-name = "easy_json_serde"
-version = "0.1.0"
+authors = ["Joseph T Lyons <JosephTLyons@gmail.com>"]
+description = "Dead-simple JSON serialization / serialization"
 edition = "2021"
+license = "GPL-3.0-only"
+name = "easy_json_serde"
+repository = "https://github.com/JosephTLyons/easy_json_serde"
+version = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
