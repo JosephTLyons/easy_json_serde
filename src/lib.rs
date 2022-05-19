@@ -3,7 +3,7 @@ use serde_json::{ser::PrettyFormatter, Serializer};
 use std::error::Error;
 use std::{fs::File, io::Read};
 
-trait EasyJsonSerialize {
+pub trait EasyJsonSerialize {
     fn save<T: Serialize>(
         &self,
         serializable_struct: &T,
@@ -26,7 +26,7 @@ impl EasyJsonSerialize for File {
     }
 }
 
-trait EasyJsonDeserialize<T: DeserializeOwned> {
+pub trait EasyJsonDeserialize<T: DeserializeOwned> {
     fn load(file: &mut File) -> Result<T, Box<dyn Error>>;
 }
 
