@@ -1,6 +1,6 @@
 [package]
 authors = ["Joseph T Lyons <JosephTLyons@gmail.com>"]
-description = "Dead-simple JSON serialization / serialization"
+description = "Dead-simple JSON serialization / deserialization"
 edition = "2021"
 license = "GPL-3.0-only"
 name = "easy_json_serde"

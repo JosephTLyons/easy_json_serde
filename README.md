@@ -1,6 +1,6 @@
 # easy_json_serde
 
-Dead-simple JSON serialization / serialization
+Dead-simple JSON serialization / deserialization
 
 [`easy_json_serde`](https://crates.io/crates/easy_json_serde) works in
 conjunction with [`serde`](https://crates.io/crates/serde).  Decorate your
