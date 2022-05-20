@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## May 19, 2022 - v0.2.1
+
+- Fixed README.md example
+
 ## May 19, 2022 - v0.2.0
 
 - Changed API to make serialization / deserialization more symmetric and natural
