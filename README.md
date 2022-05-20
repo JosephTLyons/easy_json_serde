@@ -9,9 +9,10 @@ conjunction with [`serde`](https://crates.io/crates/serde).  Decorate your
 and easily serialize / deserialize to and from JSON.
 
 ```rust
+use std::fs::File;
+
 use easy_json_serde::{EasyJsonDeserialize, EasyJsonSerialize};
 use serde::{Deserialize, Serialize};
-use std::fs::File;
 
 #[derive(Serialize, Deserialize)]
 struct Dog {
@@ -20,23 +21,16 @@ struct Dog {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let file_name = "output_file.json";
-
-    {
-        let rufus = Dog {
-            name: "Rufus".to_string(),
-            age: 10,
-        };
-        let json_file = File::create(file_name)?;
-        json_file.save(&rufus, "    ")?;
-    }
-
-    let rufus: Dog = {
-        let mut json_file = File::open(file_name)?;
-        Dog::load(&mut json_file)?
+    let rufus_original = Dog {
+        name: "Rufus".to_string(),
+        age: 10,
     };
 
-    Ok(())
-}
+    let file_name = "test.json";
+    let indentation_string = "    ";
+    File::save(file_name, &rufus_original, indentation_string)?;
 
+    let mut json_file = File::open(file_name)?;
+    let rufus_deserialized: Dog = Dog::load(&mut json_file)?;
+}
 ```
