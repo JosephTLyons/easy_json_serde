@@ -31,6 +31,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     File::save(file_name, &rufus_original, indentation_string)?;
 
     let mut json_file = File::open(file_name)?;
-    let rufus_deserialized: Dog = Dog::load(&mut json_file)?;
+    let _rufus_deserialized: Dog = Dog::load(&mut json_file)?;
+
+    Ok(())
 }
 ```
