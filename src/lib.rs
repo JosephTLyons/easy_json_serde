@@ -1,28 +1,31 @@
 use serde::{de::DeserializeOwned, Serialize};
 use serde_json::{ser::PrettyFormatter, Serializer};
 use std::error::Error;
-use std::{fs::File, io::Read};
+use std::fs::{File, OpenOptions};
+use std::io::Read;
+use std::path::Path;
 
 pub trait EasyJsonSerialize {
-    fn save<T: Serialize>(
-        &self,
-        serializable_struct: &T,
+    fn save<P: AsRef<Path>, T: Serialize>(
+        path: P,
+        serializable_type: &T,
         indent_string: &str,
-    ) -> Result<(), Box<dyn Error>>;
+    ) -> Result<File, Box<dyn Error>>;
 }
 
 impl EasyJsonSerialize for File {
-    fn save<T: Serialize>(
-        &self,
+    fn save<P: AsRef<Path>, T: Serialize>(
+        path: P,
         serializable_type: &T,
         indent_string: &str,
-    ) -> Result<(), Box<dyn Error>> {
+    ) -> Result<File, Box<dyn Error>> {
         let formatter = PrettyFormatter::with_indent(indent_string.as_bytes());
-        let mut serializer = Serializer::with_formatter(self, formatter);
+        let file = OpenOptions::new().write(true).create(true).open(path)?;
+        let mut serializer = Serializer::with_formatter(&file, formatter);
 
         serializable_type.serialize(&mut serializer)?;
 
-        Ok(())
+        Ok(file)
     }
 }
 
