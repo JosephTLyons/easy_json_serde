@@ -64,7 +64,6 @@ mod tests {
 
         let file_name = "test.json";
         let indentation_string = "    ";
-
         File::save(file_name, &rufus_original, indentation_string).unwrap();
 
         let mut json_file = File::open(file_name).unwrap();
@@ -73,4 +72,3 @@ mod tests {
         assert_eq!(rufus_original, rufus_deserialized)
     }
 }
-
