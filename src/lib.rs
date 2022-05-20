@@ -41,3 +41,36 @@ impl<T: DeserializeOwned> EasyJsonDeserialize<T> for T {
         Ok(serde_json::from_str(&json_string)?)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::fs::File;
+
+    use super::{EasyJsonDeserialize, EasyJsonSerialize};
+    use serde::{Deserialize, Serialize};
+
+    #[derive(Serialize, Deserialize, PartialEq, Debug)]
+    struct Dog {
+        name: String,
+        age: u8,
+    }
+
+    #[test]
+    fn test_serialization_and_deserialization() {
+        let rufus_original = Dog {
+            name: "Rufus".to_string(),
+            age: 10,
+        };
+
+        let file_name = "test.json";
+        let indentation_string = "    ";
+
+        File::save(file_name, &rufus_original, indentation_string).unwrap();
+
+        let mut json_file = File::open(file_name).unwrap();
+        let rufus_deserialized: Dog = Dog::load(&mut json_file).unwrap();
+
+        assert_eq!(rufus_original, rufus_deserialized)
+    }
+}
+
