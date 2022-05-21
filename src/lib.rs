@@ -29,7 +29,7 @@ impl EasyJsonSerialize for File {
     }
 }
 
-pub trait EasyJsonDeserialize<T: DeserializeOwned> {
+pub trait EasyJsonDeserialize<T> {
     fn load(file: &mut File) -> Result<T, Box<dyn Error>>;
 }
 
