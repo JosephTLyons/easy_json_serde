@@ -62,9 +62,9 @@ mod tests {
             age: 10,
         };
 
-        let file_name = "test.json";
         let indentation_string = "    ";
         File::save(file_name, &rufus_original, indentation_string).unwrap();
+        let file_name = "dog.json";
 
         let mut json_file = File::open(file_name).unwrap();
         let rufus_deserialized: Dog = Dog::load(&mut json_file).unwrap();
