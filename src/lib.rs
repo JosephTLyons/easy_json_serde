@@ -9,7 +9,7 @@ pub trait EasyJsonSerialize {
     fn save<P: AsRef<Path>, T: Serialize>(
         path: P,
         serializable_type: &T,
-        indent_string: &str,
+        indentation_width: usize,
     ) -> Result<File, Box<dyn Error>>;
 }
 
@@ -17,9 +17,10 @@ impl EasyJsonSerialize for File {
     fn save<P: AsRef<Path>, T: Serialize>(
         path: P,
         serializable_type: &T,
-        indent_string: &str,
+        indentation_width: usize,
     ) -> Result<File, Box<dyn Error>> {
-        let formatter = PrettyFormatter::with_indent(indent_string.as_bytes());
+        let indentation_string = " ".repeat(indentation_width);
+        let formatter = PrettyFormatter::with_indent(indentation_string.as_bytes());
         let file = OpenOptions::new().write(true).create(true).open(path)?;
         let mut serializer = Serializer::with_formatter(&file, formatter);
 
@@ -62,9 +63,8 @@ mod tests {
             age: 10,
         };
 
-        let indentation_string = "    ";
-        File::save(file_name, &rufus_original, indentation_string).unwrap();
         let file_name = "dog.json";
+        File::save(file_name, &rufus_original, 4).unwrap();
 
         let mut json_file = File::open(file_name).unwrap();
         let rufus_deserialized: Dog = Dog::load(&mut json_file).unwrap();

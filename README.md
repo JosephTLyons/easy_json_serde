@@ -26,9 +26,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         age: 10,
     };
 
-    let indentation_string = "    ";
-    File::save(file_name, &rufus_original, indentation_string)?;
     let file_name = "dog.json";
+    File::save(file_name, &rufus_original, 4)?;
 
     let mut json_file = File::open(file_name)?;
     let _rufus_deserialized: Dog = Dog::load(&mut json_file)?;
