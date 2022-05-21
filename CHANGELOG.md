@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## May 21, 2022 - v0.2.2
+
+- Changed `indentation_string` parameter to `indentation_width`
+
 ## May 19, 2022 - v0.2.1
 
 - Fixed README.md example
